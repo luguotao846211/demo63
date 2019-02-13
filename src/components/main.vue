@@ -10,7 +10,7 @@
             <h2 class="h2">电商后台管理系统</h2>
         </el-col>
         <el-col :span="1">
-            <a href="#" class="a">退出</a>
+            <a @click.prevent="tclogin()" href="#" class="a">退出</a>
         </el-col>
     </el-row>
   </el-header>
@@ -33,11 +33,26 @@ export default {
     }
   },
   methods: {
-
+    tclogin () {
+      this.$confirm('此操作将退出登录, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            localStorage.clear()
+            this.$router.push({name:'login'})
+            this.$message.success('退出成功')
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消退出'
+          });
+        });
+    }
   },
   //   router,
   beforeCreate () {
-    const token = sessionStorage.getItem('token')
+    const token = localStorage.getItem('token')
     console.log(token)
     if (!token) {
       // 返回登录页
