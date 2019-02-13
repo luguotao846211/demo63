@@ -16,13 +16,16 @@
   </el-header>
   <el-container class="left">
     <el-aside width="200px">Aside</el-aside>
-    <el-main class="main">Main</el-main>
+    <el-main class="main">
+        <router-view></router-view>
+    </el-main>
   </el-container>
 </el-container>
     </div>
 </template>
 
 <script>
+// import router from '../router/index'
 export default {
   data () {
     return {
@@ -32,14 +35,15 @@ export default {
   methods: {
 
   },
+  //   router,
   beforeCreate () {
     const token = sessionStorage.getItem('token')
     console.log(token)
-    // if (!token) {
-    //   // 返回登录页
-    //   this.$router.push({name: 'login'})
-    //   this.$message.warning('请先登录')
-    // }
+    if (!token) {
+      // 返回登录页
+      this.$router.push({name: 'login'})
+      this.$message.warning('请先登录')
+    }
   }
 }
 </script>
