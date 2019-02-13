@@ -14,7 +14,7 @@ export default new Router({
     },
     {
       path: '/login',
-      name: 'zs',
+      name: 'login',
       component: loginRouter
     },
     {

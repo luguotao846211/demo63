@@ -7,10 +7,10 @@
             <img src="@/assets/logo.png" alt="图片加载失败">
         </el-col>
         <el-col :span="19">
-            <h2>123</h2>
+            <h2 class="h2">电商后台管理系统</h2>
         </el-col>
         <el-col :span="1">
-            <a href="#">退出</a>
+            <a href="#" class="a">退出</a>
         </el-col>
     </el-row>
   </el-header>
@@ -23,7 +23,25 @@
 </template>
 
 <script>
-export default {}
+export default {
+  data () {
+    return {
+
+    }
+  },
+  methods: {
+
+  },
+  beforeCreate () {
+    const token = sessionStorage.getItem('token')
+    console.log(token)
+    // if (!token) {
+    //   // 返回登录页
+    //   this.$router.push({name: 'login'})
+    //   this.$message.warning('请先登录')
+    // }
+  }
+}
 </script>
 
 <style>
@@ -32,12 +50,19 @@ export default {}
 }
 .head{
     height: 100%;
-    background: yellow;
+     background: #b3c0d1;
 }
 .left{
     background: red;
 }
 .main{
     background: orange;
+}
+.a, .h2{
+line-height: 60px;
+text-align: center
+}
+.a{
+    text-decoration: none;
 }
 </style>
