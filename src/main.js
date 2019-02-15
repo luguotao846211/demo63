@@ -7,10 +7,16 @@ import '@/assets/css/base.css'
 import App from './App'
 import router from './router'
 import axios from 'axios'
+import moment from 'moment'
 axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
 Vue.prototype.$http = axios
 
 Vue.use(ElementUI)
+
+Vue.filter('capitalize', function (value) {
+  if (!value) return ''
+  return moment(value).format('YY-MM-DD')
+})
 
 Vue.config.productionTip = false
 

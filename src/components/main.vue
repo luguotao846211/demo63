@@ -135,6 +135,7 @@ export default {
       this.$router.push({ name: "login" });
       this.$message.warning("请先登录");
     }
+    this.$http.defaults.headers.common["Authorization"] = token;
   }
 };
 </script>
