@@ -70,11 +70,12 @@
     </el-table-column>
   </el-table>
   <!-- <template slot-scope="scope"> -->
+
   <div class="block">
     <el-pagination
       @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
-      :current-page="pagenum"
+      :current-page.sync="pagenum"
       :page-sizes="[2, 4, 6, 8]"
       :page-size="2"
       layout="total, sizes, prev, pager, next, jumper"
@@ -82,6 +83,10 @@
     </el-pagination>
   </div>
   <!-- </template> -->
+
+
+
+
 </el-card>
 <el-dialog
   title="添加用户"
@@ -168,6 +173,7 @@
 export default {
   data() {
     return {
+      pagenum: 1  ,
       zg:'',
       labelPosition: "right",
       formDateEdit: {},
@@ -182,11 +188,10 @@ export default {
       rolseId:'',
       rolse:[],
       query: "",
-      pagenum: 1,
       pagesize: 2,
       //   currentPage4: 1,
       value2: true,
-      total: -1,
+      total: '',
       dialogVisibleAdd: false,
       dialogVisibleEdit: false,
       dialogVisibleFp: false
@@ -288,8 +293,6 @@ export default {
     },
     handleSizeChange(a) {
       this.pagesize = a;
-      //   this.pagenum = 1;
-      this.currentPage4 = 1;
       this.getlist();
     },
     handleCurrentChange(b) {
@@ -318,6 +321,9 @@ export default {
         this.tableData2 = data.users;
       }
     }
+  },
+  updated () {
+    // this.getlist()
   }
 };
 </script>

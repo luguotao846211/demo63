@@ -127,15 +127,13 @@ export default {
     }
   },
   //   router,
-  beforeCreate() {
+  created() {
     const token = localStorage.getItem("token");
-    console.log(token);
     if (!token) {
       // 返回登录页
       this.$router.push({ name: "login" });
       this.$message.warning("请先登录");
     }
-    this.$http.defaults.headers.common["Authorization"] = token;
   }
 };
 </script>
@@ -146,13 +144,13 @@ export default {
 }
 .head {
   height: 100%;
-  background: #b3c0d1;
+  background: #e0d8bb;
 }
 .left {
   background:white;
 }
 .main {
-  background: orange;
+  background: rgb(245, 235, 215);
 }
 .a,
 .h2 {

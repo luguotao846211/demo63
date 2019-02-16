@@ -6,12 +6,10 @@ import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/base.css'
 import App from './App'
 import router from './router'
-import axios from 'axios'
 import moment from 'moment'
-axios.defaults.baseURL = 'http://localhost:8888/api/private/v1/'
-Vue.prototype.$http = axios
-
+import httpAxios from '@/components/http.js'
 Vue.use(ElementUI)
+Vue.use(httpAxios)
 
 Vue.filter('capitalize', function (value) {
   if (!value) return ''

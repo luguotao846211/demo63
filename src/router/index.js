@@ -53,12 +53,12 @@ export default new Router({
         component: dataForm
       },
       {
-        path: '/jurisdiction',
+        path: '/role',
         name: 'jurisdiction',
         component: jurisdiction
       },
       {
-        path: '/role',
+        path: '/jurisdiction',
         name: 'role',
         component: role
       },
