@@ -10,8 +10,11 @@ import jurisdiction from '@/components/jurisdiction/jurisdiction'
 import role from '@/components/jurisdiction/role'
 import orderList from '@/components/order/orderList'
 import user from '@/components/user/user'
+import mianbao from '@/components/mianbao'
 
 Vue.use(Router)
+
+Vue.component(mianbao.name, mianbao)
 
 export default new Router({
   routes: [

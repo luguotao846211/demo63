@@ -147,18 +147,15 @@
   <span>用户名</span> <span>{{formDateEdit.username}}</span>
   <div>
       <span>角色</span>
-      <el-select v-model="zg">
-      <el-option label="主管" value="主管"></el-option>
-      <el-option label="测试角色" value="测试角色"></el-option>
-      <el-option label="测试角色2" value="测试角色2"></el-option>
-      <el-option label="超级管理员" value="超级管理员"></el-option>
-      <el-option label="test" value="test"></el-option>
+      <el-select v-model="rolseId">
+        <el-option label="请选择" :value="-1"></el-option>
+        <el-option v-for="(item,i) in rolse" :key="i" :label="item.roleName" :value="item.id"></el-option>
     </el-select>
   </div>
 </el-form>
-<span slot="footer" class="dialog-footer">
+<span slot="footer" class="dialog-footer">llist
     <el-button @click="dialogVisibleFp = false">取 消</el-button>
-    <el-button type="primary" @click="llist()">确 定</el-button>
+    <el-button type="primary" @click="llistFp()">确 定</el-button>
   </span>
 </el-dialog>
 
@@ -171,7 +168,7 @@
 export default {
   data() {
     return {
-      zg:"主管",
+      zg:'',
       labelPosition: "right",
       formDateEdit: {},
       formDate: {
@@ -182,6 +179,8 @@ export default {
         create_time: ""
       },
       tableData2: [],
+      rolseId:'',
+      rolse:[],
       query: "",
       pagenum: 1,
       pagesize: 2,
@@ -197,13 +196,29 @@ export default {
     this.getlist();
   },
   methods: {
+    //分配
+    async llistFp(){
+
+      const res = await this.$http.put(`users/${this.zg}/role`,{rid:this.rolseId})
+      const { data: { data, meta: { msg, status } } } = res;
+      // console.log(res);
+      if(status===200){
+         this.$message.success(msg);
+      }
+      this.dialogVisibleFp=false
+    },
     async fenpeijuese(id) {
+      this.zg=id
       const res = await this.$http.get(`users/${id}`);
       const { data: { data, meta: { msg, status } } } = res;
       if (status === 200) {
-        this.formDateEdit = data;
+        this.rolseId = data.rid;
+        console.log(data.rid);
         this.dialogVisibleFp = true;
       }
+      const ret = await this.$http.get(`roles`)
+      console.log(ret.data);
+      this.rolse=ret.data.data
     },
     async llist(id) {
       //   alert(123)
@@ -239,8 +254,9 @@ export default {
       const res = await this.$http.put(`users/${id}/state/${mg_state}`);
       const { data: { data, meta: { msg, status } } } = res;
       console.log(res);
-      if (status === 201) {
-        this.getlist();
+      if (status === 200) {
+        this.$message.success(msg)
+        // this.getlist();
       }
     },
     submitForm(formName) {
@@ -250,6 +266,7 @@ export default {
           this.create_time = new Date();
           this.$http.post("users", this.formDate).then(res => {
             this.getlist();
+            this.formDate={}
           });
           // alert('submit!');
           // 验证通过

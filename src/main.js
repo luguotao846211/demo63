@@ -15,7 +15,7 @@ Vue.use(ElementUI)
 
 Vue.filter('capitalize', function (value) {
   if (!value) return ''
-  return moment(value).format('YY-MM-DD')
+  return moment(value).format('YYYY-MM-DD')
 })
 
 Vue.config.productionTip = false
