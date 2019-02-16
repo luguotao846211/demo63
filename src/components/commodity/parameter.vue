@@ -1,7 +1,7 @@
 <template>
-    <div>
-        商品参数
-    </div>
+    <el-card id="box">
+        <mian-bao leavel1="商品管理" leavel2="商品参数"></mian-bao>
+        </el-card>
 </template>
 
 <script>
