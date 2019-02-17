@@ -21,8 +21,13 @@
       label="路径">
     </el-table-column>
     <el-table-column
-      prop="pid"
+      prop="level"
       label="层级">
+      <template slot-scope="scope">
+        <span v-if="scope.row.level==='0'">一级</span>
+        <span v-if="scope.row.level==='1'">二级</span>
+        <span v-if="scope.row.level==='2'">三级</span>
+      </template>
     </el-table-column>
   </el-table>
         </el-card>
@@ -42,6 +47,7 @@ export default {
              const{data:{data,meta:{msg,status}}}=res
              if(status===200){
                  this.tableData2=data
+                 console.log(this.tableData2);
              }
         },
         //颜色控制

@@ -5,6 +5,7 @@ import mainRouter from '@/components/main'
 import shoppingList from '@/components/commodity/list'
 import classification from '@/components/commodity/classification'
 import parameter from '@/components/commodity/parameter'
+import listadd from '@/components/commodity/listadd'
 import dataForm from '@/components/data/reportForm'
 import jurisdiction from '@/components/jurisdiction/jurisdiction'
 import role from '@/components/jurisdiction/role'
@@ -51,6 +52,11 @@ export default new Router({
         path: '/dataForm',
         name: 'dataForm',
         component: dataForm
+      },
+      {
+        path: '/listadd',
+        name: 'listadd',
+        component: listadd
       },
       {
         path: '/role',

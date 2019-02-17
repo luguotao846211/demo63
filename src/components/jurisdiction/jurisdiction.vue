@@ -12,13 +12,13 @@
       type="expand">
           <template slot-scope="scope">
               <!-- 一级 -->
-          <el-row v-for="(item,i) in scope.row.children" :key="i" class="level1">
+          <el-row v-for="(item,i) in scope.row.children" :key="i">
               <el-col :span="4">
               <el-tag
             closable
-            type="">
+            type="" @close="handleClose(item,scope.row)">
              {{item.authName}}
-</el-tag>
+</el-tag>&nbsp;>
 </el-col>
 <el-col :span="20">
     <!-- 二级 -->
@@ -26,21 +26,19 @@
         <el-col :span="4">
 <el-tag
             closable
-            type="success">
+            type="success" @close="handleClose(item1,scope.row)">
              {{item1.authName}}
-</el-tag>
+</el-tag>&nbsp;>
 </el-col>
 <el-col :span="20">
 <el-row>
-    <el-rol :span="24" v-for="(item2,t) in item1.children" :key="t">
-        <span>
+    <span v-for="(item2,t) in item1.children" :key="t">
             <el-tag
             closable
-            type="warning">
+            type="warning" @close="handleClose(item2,scope.row)">
              {{item2.authName}}
 </el-tag>
-        </span>
-    </el-rol>
+    </span>
 </el-row>
 </el-col>
     </el-row>
@@ -124,6 +122,18 @@ export default {
     };
   },
   methods: {
+    // 关闭移出tag
+    async handleClose(tag,id,i){
+     
+      const res = await this.$http.delete(`roles/${id.id}/rights/${tag.id}`)
+      const{ data: { data, meta: { msg, status } } }=res
+      if(status===200){
+        // this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+        this.$message.success(msg)
+        // console.log(data);
+          id.children=data
+      }
+    },
     //三级权限
     handleChange(val) {
       console.log(val);
@@ -140,6 +150,7 @@ export default {
       if (status === 200) {
         this.$message.success(msg);
         this.dialogVisible = false;
+        this.getlist()
       }
     },
     //编辑
