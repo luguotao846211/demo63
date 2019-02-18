@@ -1,6 +1,6 @@
 <template>
     <el-card id="box">
-        <mian-bao leavel1="权限管理" leavel2="权限列表"></mian-bao>
+        <mian-bao leavel1="权限管理" leavel2="角色列表"></mian-bao>
 <el-table
     :data="tableData2"
     height="800px"
@@ -12,7 +12,13 @@
       type="expand">
           <template slot-scope="scope">
               <!-- 一级 -->
+          <el-row v-if="scope.row.children.length===0">
+            <el-col :span="24" class="span">
+              <span>---木有数据---</span>
+            </el-col>
+          </el-row>
           <el-row v-for="(item,i) in scope.row.children" :key="i">
+            
               <el-col :span="4">
               <el-tag
             closable
@@ -154,7 +160,9 @@ export default {
       }
     },
     //编辑
-    putlist() {},
+    
+    putlist() {
+    },
     // 删除
     deletelist() {},
     // 分配权限
@@ -215,5 +223,8 @@ export default {
 .row-add{
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.span{
+  text-align: center;
 }
 </style>

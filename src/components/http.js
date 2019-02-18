@@ -6,7 +6,7 @@ MyPlugin.install = function (Vue) {
   axios.interceptors.request.use(function (config) {
     if (config.url !== 'login') {
       const AUTH_TOKEN = localStorage.getItem('token')
-      config.headers.common['Authorization'] = AUTH_TOKEN
+      config.headers['Authorization'] = AUTH_TOKEN
     }
     return config
   }, function (error) {

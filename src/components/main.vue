@@ -22,66 +22,14 @@
       class="el-menu-vertical-demo"
       @open="handleOpen"
       @close="handleClose">
-      <el-submenu index="1">
+      <el-submenu  v-for="(item,i) in data" :key="i"  :index="i+''">
         <template slot="title">
           <i class="el-icon-location"></i>
-          <span>用户管理</span>
+          <span>{{item.authName}}</span>
         </template>
-          <el-menu-item index="user">
+          <el-menu-item :index="item1.path" v-for="(item1,z) in item.children" :key="z">
               <i class="el-icon-menu"></i>
-              用户列表
-              </el-menu-item>
-      </el-submenu>
-      <el-submenu index="2">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>权限管理</span>
-        </template>
-          <el-menu-item index="role">
-              <i class="el-icon-menu"></i>
-              角色列表
-              </el-menu-item>
-              <el-menu-item index="jurisdiction">
-              <i class="el-icon-menu"></i>
-              权限列表
-              </el-menu-item>
-      </el-submenu>
-      <el-submenu index="3">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>商品管理</span>
-        </template>
-          <el-menu-item index="shoplist">
-              <i class="el-icon-menu"></i>
-              商品列表
-              </el-menu-item>
-              <el-menu-item index="parameter">
-              <i class="el-icon-menu"></i>
-              分类参数
-              </el-menu-item>
-              <el-menu-item index="classification">
-              <i class="el-icon-menu"></i>
-              商品分类
-              </el-menu-item>
-      </el-submenu>
-      <el-submenu index="4">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>订单管理</span>
-        </template>
-          <el-menu-item index="orderList">
-              <i class="el-icon-menu"></i>
-              订单分类
-              </el-menu-item>
-      </el-submenu>
-      <el-submenu index="5">
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>数据统计</span>
-        </template>
-          <el-menu-item index="dataForm">
-              <i class="el-icon-menu"></i>
-              数据报表
+              {{item1.authName}}
               </el-menu-item>
       </el-submenu>
     </el-menu>
@@ -98,9 +46,15 @@
 // import router from '../router/index'
 export default {
   data() {
-    return {};
+    return {
+      data:[]
+    };
   },
   methods: {
+    async getleftlist(){
+        const { data: { data, meta: { msg, status } } }=await this.$http.get('menus')
+        this.data=data
+    },
     handleOpen(key, keyPath) {
       console.log(1);
     },
@@ -128,12 +82,7 @@ export default {
   },
   //   router,
   created() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      // 返回登录页
-      this.$router.push({ name: "login" });
-      this.$message.warning("请先登录");
-    }
+    this.getleftlist()
   }
 };
 </script>

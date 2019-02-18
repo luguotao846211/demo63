@@ -12,14 +12,16 @@ import role from '@/components/jurisdiction/role'
 import orderList from '@/components/order/orderList'
 import user from '@/components/user/user'
 import mianbao from '@/components/mianbao'
+import {
+  Message
+} from 'element-ui'
 
 Vue.use(Router)
 
 Vue.component(mianbao.name, mianbao)
 
-export default new Router({
-  routes: [
-    {
+const router = new Router({
+  routes: [{
       path: '/',
       name: 'zs',
       component: loginRouter
@@ -34,50 +36,65 @@ export default new Router({
       name: 'main',
       component: mainRouter,
       children: [{
-        path: '/shoplist',
-        name: 'shoplist',
-        component: shoppingList
-      },
-      {
-        path: '/classification',
-        name: 'classification',
-        component: classification
-      },
-      {
-        path: '/parameter',
-        name: 'parameter',
-        component: parameter
-      },
-      {
-        path: '/dataForm',
-        name: 'dataForm',
-        component: dataForm
-      },
-      {
-        path: '/listadd',
-        name: 'listadd',
-        component: listadd
-      },
-      {
-        path: '/role',
-        name: 'jurisdiction',
-        component: jurisdiction
-      },
-      {
-        path: '/jurisdiction',
-        name: 'role',
-        component: role
-      },
-      {
-        path: '/orderList',
-        name: 'orderList',
-        component: orderList
-      },
-      {
-        path: '/user',
-        name: 'user',
-        component: user
-      }]
+          path: '/goods',
+          name: 'shoplist',
+          component: shoppingList
+        },
+        {
+          path: '/categories',
+          name: 'classification',
+          component: classification
+        },
+        {
+          path: '/params',
+          name: 'parameter',
+          component: parameter
+        },
+        {
+          path: '/dataForm',
+          name: 'dataForm',
+          component: dataForm
+        },
+        {
+          path: '/listadd',
+          name: 'listadd',
+          component: listadd
+        },
+        {
+          path: '/roles',
+          name: 'jurisdiction',
+          component: jurisdiction
+        },
+        {
+          path: '/rights',
+          name: 'role',
+          component: role
+        },
+        {
+          path: '/orders',
+          name: 'orderList',
+          component: orderList
+        },
+        {
+          path: '/users',
+          name: 'user',
+          component: user
+        }
+      ]
     }
   ]
 })
+router.beforeEach((to, from, next) => {
+  if (to.name !== 'login') {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      router.push({
+        name: 'login'
+      })
+      Message.error('请先登录')
+      return
+    }
+  }
+  next()
+})
+export default router

@@ -8,6 +8,11 @@ import App from './App'
 import router from './router'
 import moment from 'moment'
 import httpAxios from '@/components/http.js'
+import VueQuillEditor from 'vue-quill-editor'
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+Vue.use(VueQuillEditor)
 Vue.use(ElementUI)
 Vue.use(httpAxios)
 

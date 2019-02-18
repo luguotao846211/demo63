@@ -1,6 +1,6 @@
 <template>
     <el-card id="box">
-        <mian-bao leavel1="权限管理" leavel2="角色列表"></mian-bao>
+        <mian-bao leavel1="权限管理" leavel2="权限列表"></mian-bao>
        <el-table
     :data="tableData2"
     height="800px"

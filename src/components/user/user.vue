@@ -191,7 +191,7 @@ export default {
       pagesize: 2,
       //   currentPage4: 1,
       value2: true,
-      total: '',
+      total:0,
       dialogVisibleAdd: false,
       dialogVisibleEdit: false,
       dialogVisibleFp: false
