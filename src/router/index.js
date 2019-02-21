@@ -79,6 +79,11 @@ const router = new Router({
           path: '/users',
           name: 'user',
           component: user
+        },
+        {
+          path: '/reports',
+          name: 'reports',
+          component: dataForm
         }
       ]
     }

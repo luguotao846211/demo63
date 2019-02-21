@@ -45,6 +45,7 @@
       label="操作">
       <template slot-scope="scope">
             <el-button type="primary" icon="el-icon-edit" size="mini" plain @click="putlist(scope.row)"></el-button>
+             <el-button type="warning" icon="el-icon-star-off" size="mini" plain @click="postadd(scope.row)"></el-button>
       </template>
     </el-table-column>
         </el-table>
@@ -60,6 +61,29 @@
         </el-pagination>
   </div>
 
+<el-dialog
+  title="修改订单地址"
+  :visible.sync="dialogVisible1"
+  width="30%"
+  >
+  <el-form label-position="left" label-width="80px" :model="formLabelAlign">
+  <el-form-item label="省市区/县">
+    <el-cascader
+                clearable
+                :options="options"
+                expand-trigger="hover"
+                v-model="selectedOptions">
+            </el-cascader>
+  </el-form-item>
+  <el-form-item label="详细地址">
+    <el-input v-model="formLabelAlign.region"></el-input>
+  </el-form-item>
+</el-form>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible1 = false">取 消</el-button>
+    <el-button type="primary" @click="dialogVisible1 = false">确 定</el-button>
+  </span>
+</el-dialog>
 
   <el-dialog
   title="状态管理"
@@ -108,7 +132,7 @@
 </el-form>
   <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible1()">确 定</el-button>
+    <el-button type="primary" @click="dialogVisibl()">确 定</el-button>
   </span>
 </el-dialog>
 
@@ -116,6 +140,7 @@
 </template>
 
 <script>
+import jsonadd from '@/assets/city_data2017_element.js'
 export default {
     data () {
         return {
@@ -126,13 +151,24 @@ export default {
             tableData:[],
             pagenum:1,
             pagesize:10,
+            formLabelAlign:{
+                name:'',
+                region:''
+            },
+            selectedOptions:[],
             total:0,
             dialogVisible:false,
-            id:0
+            dialogVisible1:false,
+            id:0,
+            options:[]
         }
     },
     methods: {
-        async dialogVisible1(){
+        async postadd(item){
+        this.dialogVisible1=true
+        this.options=jsonadd
+        },
+        async dialogVisibl(){
             // console.log(this.formDate2);
             //  const { data: { data, meta: { msg, status } } } = await this.$http.put(
             //         `orders/${this.id.order_id}}`,this.formDate2
@@ -152,7 +188,6 @@ export default {
             }else if(this.formDate2.order_pay==='银行卡'){
                  this.formDate2.order_pay==='3'
             }
-            console.log(this.formDate2.is_send+'');
             // console.log(this.formDate2.order_pay);
             // console.log(this.formDate2.pay_status);
              const res = await this.$http.put(
@@ -162,7 +197,6 @@ export default {
                     pay_status:1
                     }
                 );
-                console.log(res.data.data);
                 if(res.data.meta.status===201){
                     this.$message.success(res.data.meta.msg)
                     this.getlist()

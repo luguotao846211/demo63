@@ -3,7 +3,7 @@
         <mian-bao leavel1="商品管理" leavel2="商品列表"></mian-bao>
         <el-alert simple title="添加商品信息" type="warning" center show-icon class="title" :closable="false">
         </el-alert>
-        <el-steps  :active="active" finish-status="success" align-center>
+        <el-steps  :active="parseInt(active)" finish-status="success" align-center>
             <el-step title="基本信息"></el-step>
             <el-step title="商品参数"></el-step>
             <el-step title="商品属性"></el-step>
@@ -101,7 +101,7 @@ export default {
       formDate1:[],
       formLabelAlign:{},
       checkboxGroup: [],
-      active: "1",
+      active: '1',
       value6: "",
       cities: [],
       xinxi: [],  //商品参数信息
@@ -109,7 +109,6 @@ export default {
       xinxi2:[],
       selectedOptions: [],
       props: { value: "cat_id", label: "cat_name", children: "children" },
-      active: "1",
       formDate: {},
       fileList2:[],
       potos:[],
@@ -134,12 +133,12 @@ export default {
                 this.active='1'
                 return this.$message.warning('请输入商品重量')
             }
+            this.active=this.active+''
           let arr1=[]//attrs数据
           let arr2=[]
         //   console.log(this.potos);  // 图片数据
         //   console.log(this.content);  //富文本
         //   console.log(this.formDate1);  //静态参数
-              console.log(this.xinxi);
               this.xinxi.forEach((item)=>{
                 let ax= item.attr_vals.join(',')
                 //   console.log(item.attr_vals.join(','));
@@ -166,11 +165,12 @@ export default {
             this.$router.push({name:'shoplist'})
           }else{
             this.active='1'
-            this.$message.error(msg);
+            // this.$message.error(msg);
           }
       },
     //   富文本编辑器
       onEditorBlur(quill) {
+        
         // console.log('editor blur!', quill)
       },
       onEditorFocus(quill) {
