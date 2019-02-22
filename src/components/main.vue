@@ -18,16 +18,17 @@
     <el-aside width="200px">
         <!-- 侧边导航 -->
         <el-menu unique-opened router
-      default-active="2"
+      :default-active="$route.path"
       class="el-menu-vertical-demo"
       @open="handleOpen"
+      @select="fnnn"
       @close="handleClose">
-      <el-submenu  v-for="(item,i) in data" :key="i"  :index="i+''">
+      <el-submenu  v-for="(item,i) in data" :key="i"  :index="item.authName">
         <template slot="title">
           <i class="el-icon-location"></i>
           <span>{{item.authName}}</span>
         </template>
-          <el-menu-item :index="item1.path" v-for="(item1,z) in item.children" :key="z">
+          <el-menu-item :index="'/'+item1.path" v-for="(item1,z) in item.children" :key="z">
               <i class="el-icon-menu"></i>
               {{item1.authName}}
               </el-menu-item>
@@ -51,9 +52,13 @@ export default {
     };
   },
   methods: {
+    fnnn(a,b){
+      console.log(this.$route.path);
+    },
     async getleftlist(){
         const { data: { data, meta: { msg, status } } }=await this.$http.get('menus')
         this.data=data
+        console.log(data);
     },
     handleOpen(key, keyPath) {
       console.log(1);

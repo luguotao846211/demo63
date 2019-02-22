@@ -159,9 +159,9 @@ export default {
           // console.log(form);
         //   const { data: { data, meta: { msg, status } } } = await this.$http.post(`goods`,form);
           const { data: { data, meta: { msg, status } } } = await this.$http.post(`goods`,form);
-          if(status===201){
-            this.$message.success(msg);
             console.log(data);
+          if(status===201){
+            this.$message.success(msg);    
             this.$router.push({name:'shoplist'})
           }else{
             this.active='1'
